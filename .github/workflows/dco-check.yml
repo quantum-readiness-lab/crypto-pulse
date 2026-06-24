@@ -1,0 +1,22 @@
+name: "DCO Check"
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ opened, synchronize, reopened ]
+
+permissions:
+  contents: read
+
+jobs:
+  verify-dco:
+    name: Verify Commit Sign-offs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Deep clone required to scan the entire commit history of the PR
+
+      - name: Validate Developer Certificate of Origin
+        uses: tim-actions/dco@v1.3.0
